@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
 import AppContainer from "../containers/AppContainer";
 import LoginPage from "./Login";
-import Main from "./Main";
+import Main from "./MainPage";
 import { Provider, Subscribe } from "unstated";
 
 class Application extends React.Component {
@@ -23,7 +23,7 @@ class Application extends React.Component {
   renderLoginPage() {
     const { app } = this.props;
     if (app.state.isSignIn) {
-      return <Redirect to="/" />;
+      return <Redirect to="/items" />;
     } else {
       return <LoginPage />;
     }
@@ -33,9 +33,9 @@ class Application extends React.Component {
     return (
       <BrowserRouter>
         <Switch>
-          <Route exact path="/" render={() => this.renderMainPage()} />
+          <Route path="/items" render={() => this.renderMainPage()} />
           <Route path="/login" render={() => this.renderLoginPage()} />
-          <Redirect to="/" />
+          <Redirect to="/login" />
         </Switch>
       </BrowserRouter>
     );

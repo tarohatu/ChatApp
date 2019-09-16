@@ -7,11 +7,17 @@ class ItemListContainer extends Container {
 
   async readItems(db) {
     const docs = await db.collection('items');
-    const unsubscribe = await docs.onSnapshot( async (snapShot) => {
-      const items = snapShot.docChanges().map((doc) => doc.data());
-      await this.setState({
-        items
+    const unsubscribe = docs.onSnapshot((snapShot) => {
+      const items = []
+      snapShot.forEach((doc) => {
+        items.push({
+          id: doc.id,
+          item: doc.data()
+        });
       });
+      this.setState({
+        items
+      })
     });
     this.unsubscribe = unsubscribe;
   }

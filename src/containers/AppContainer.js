@@ -5,7 +5,8 @@ import config from "../config/config";
 class AppContainer extends Container {
   state = {
     user: null,
-    isSignIn: false
+    isSignIn: false,
+    appHeader: 'Home',
   };
 
   constructor() {
@@ -38,6 +39,12 @@ class AppContainer extends Container {
 
   getDb() {
     return this.db;
+  }
+
+  changeAppHeader(newValue) {
+    this.setState({
+      appHeader: newValue
+    });
   }
 }
 
