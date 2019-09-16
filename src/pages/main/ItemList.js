@@ -14,24 +14,29 @@ const styles = theme => ({
     justifyContent: 'space-around',
     overflow: 'hidden',
     backgroundColor: theme.palette.background.paper,
-    margin: '40px 0px, 0px, 0px'
+    margin: '0px 0px, 0px, 0px'
   }
 });
 
 class ItemList extends Component {
 
-  async componentDidMount() {
+  componentDidMount() {
     const { app, itemList } = this.props;
-    await itemList.readItems(app.getDb());
+    itemList.readItems(app.getDb());
   }
 
   render() {
-    const { classes, itemList } = this.props;
+    const { classes, itemList, history } = this.props;
     const { items } = itemList.state;
+
+    const redirectToDetail = (id) => {
+      history.push(`/items/details/${id}`);
+    }
+
     return (
-      <GridList cellHeight={180} className={classes.root}>
+      <GridList cellHeight={180} cols={2} className={classes.root}>
         {items.map(item => (
-          <GridListTile key={item.id}>
+          <GridListTile key={item.id} onClick={() => redirectToDetail(item.id)}>
             <img src={item.item.createdBy.photoURL} alt={item.item.data.title} />
             <GridListTileBar
               title={item.item.data.title}

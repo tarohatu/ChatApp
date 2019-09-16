@@ -5,9 +5,9 @@ class ItemListContainer extends Container {
     items: []
   }
 
-  async readItems(db) {
-    const docs = await db.collection('items');
-    const unsubscribe = docs.onSnapshot((snapShot) => {
+  readItems(db) {
+    const docs = db.collection('items');
+    docs.onSnapshot((snapShot) => {
       const items = []
       snapShot.forEach((doc) => {
         items.push({
@@ -19,7 +19,6 @@ class ItemListContainer extends Container {
         items
       })
     });
-    this.unsubscribe = unsubscribe;
   }
 }
 
