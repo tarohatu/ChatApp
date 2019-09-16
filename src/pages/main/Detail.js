@@ -11,25 +11,29 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
-import Divider from '@material-ui/core/Divider';
+import Divider from "@material-ui/core/Divider";
+import moment from "moment";
+
+moment.locale("ja");
 
 const styles = theme => ({
   root: {
-    width: "100%",
     overflow: "hidden",
     backgroundColor: theme.palette.background.paper,
-    margin: "40px 0px, 0px, 0px"
+    margin: "0px 0px, 0px, 0px"
   },
   textArea: {
+    height: '100px',
     background: "#F3F4F5",
     position: "fixed",
-    bottom: "0px"
+    bottom: "0px",
+    padding: "0px 10px 0px 10px"
   },
   list: {
-    width: '100%',
-    height: '100%',
-    margin: '0px 0px 40px 0px'
-  }
+    margin: "0px 0px 80px 0px"
+  },
+  comment: {},
+  button: {}
 });
 
 class DetailPage extends Component {
@@ -42,7 +46,7 @@ class DetailPage extends Component {
 
   async componentDidMount() {
     const { app, detail, match } = this.props;
-    await detail.readItem(app.getDb(), match.params.id);
+    await detail.readItem(app.getDb(), match.params.id, app);
     detail.readPosts(app.getDb(), match.params.id);
   }
 
@@ -64,45 +68,58 @@ class DetailPage extends Component {
     };
 
     return (
-      <Grid container>
-        <Grid container>
-          <Grid item lg={12}>
-            <List className={classes.list}>
-              {detail.state.posts.map(post => {
-                return (
-                  <div key={post.id}>
-                    <ListItem>
-                      <ListItemAvatar>
-                        <Avatar src={post.item.createdBy.photoURL}></Avatar>
-                      </ListItemAvatar>
-                      <ListItemText primary={post.item.comment} secondary={post.item.createdBy.displayName} />
-                    </ListItem>
-                    <Divider/>
-                  </div>
-                );
-              })}
-            </List>
+      <>
+        <Grid container spacing={3}>
+          <Grid container spacing={3}>
+            <Grid item xs={12} className={classes.list}>
+              <List>
+                {detail.state.posts.map(post => {
+                  return (
+                    <div key={post.id}>
+                      <ListItem>
+                        <ListItemAvatar>
+                          <Avatar src={post.item.createdBy.photoURL}></Avatar>
+                        </ListItemAvatar>
+                        <ListItemText
+                          primary={post.item.comment}
+                          secondary={`${
+                            post.item.createdBy.displayName
+                          }さんが${moment(post.item.createdAt).format(
+                            "YYYY/MM/DD HH:mm"
+                          )}に投稿しました`}
+                        />
+                      </ListItem>
+                      <Divider />
+                    </div>
+                  );
+                })}
+              </List>
+            </Grid>
           </Grid>
         </Grid>
         <Grid
           container
+          spacing={3}
           className={classes.textArea}
           alignItems="center"
-          justify="center"
+          justify="flex-start"
         >
-          <Grid item lg={11}>
+          <Grid item xs={9} className={classes.comment}>
             <TextField
               id="comment"
               placeholder="コメントを入力"
               fullWidth
+              multiline
+              rowsMax={3}
               variant="outlined"
               value={comment}
               onChange={handleChangeComment}
             />
           </Grid>
-          <Grid item lg={1}>
+          <Grid item xs={2} className={classes.button}>
             <Button
               fullWidth
+              disabled={comment === ""}
               variant="contained"
               color="primary"
               onClick={() =>
@@ -113,7 +130,7 @@ class DetailPage extends Component {
             </Button>
           </Grid>
         </Grid>
-      </Grid>
+      </>
     );
   }
 }

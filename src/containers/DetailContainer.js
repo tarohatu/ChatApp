@@ -8,7 +8,7 @@ class DetailContainer extends Container {
   }
 
   readPosts(db, id) {
-    const docs = db.collection('posts').where('itemId', '==', id).orderBy('createdAt', 'asc');
+    const docs = db.collection('posts').where('itemId', '==', id).orderBy('createdAt', 'desc');
     docs.onSnapshot((snapShot) => {
       const posts = [];
       snapShot.forEach((doc) => {
@@ -23,10 +23,12 @@ class DetailContainer extends Container {
     });
   }
 
-  async readItem(db, id) {
-    const item = await db.collection('items').doc(id).get();
+  async readItem(db, id, app) {
+    const result = await db.collection('items').doc(id).get();
+    const item = result.data();
+    //app.changeAppHeader(item.data.title)
     this.setState({
-      item: item.data()
+      item
     });
   }
 

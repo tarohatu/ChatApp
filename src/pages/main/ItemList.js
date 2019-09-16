@@ -11,10 +11,10 @@ const styles = theme => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
-    justifyContent: 'space-around',
+    justifyContent: 'flex-start',
     overflow: 'hidden',
     backgroundColor: theme.palette.background.paper,
-    margin: '0px 0px, 0px, 0px'
+    margin: '40px 0px, 20px, 0px'
   }
 });
 

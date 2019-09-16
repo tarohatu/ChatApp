@@ -15,8 +15,8 @@ const MainPage = props => {
       <Subscribe to={[AppContainer]}>
         {app => (
           <>
-            <AppBar user={app.getUser()} {...props} />
-            <Container>
+            <AppBar app={app} user={app.getUser()} {...props} />
+            <Container style={{marginTop: '70px', marginLeft: 0, marginRight: 0 }}>
             <Switch>
               <Route
                 path="/items/details/:id"

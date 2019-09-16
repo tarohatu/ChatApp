@@ -33,7 +33,11 @@ ElevationScroll.propTypes = {
 
 const useStyles = makeStyles(theme => ({
   root: {
-    marginBottom: theme.spacing(1)
+    marginBottom: theme.spacing(1),
+    position: 'fixed',
+    top: '0px',
+    zIndex: 99,
+    width: '100%',
   },
   menuButton: {
     marginRight: theme.spacing(2)
@@ -78,7 +82,7 @@ const MenuAppBar = props => {
     history.goBack();
   }
 
-  const { history } = props;
+  const { app, history } = props;
 
   return (
     <div className={classes.root}>
@@ -95,7 +99,7 @@ const MenuAppBar = props => {
             )}
 
             <Typography variant="h6" className={classes.title}>
-              マイページ
+              {app.state.appHeader !== '' ? app.state.appHeader : 'Home'}
             </Typography>
             <div>
               <IconButton

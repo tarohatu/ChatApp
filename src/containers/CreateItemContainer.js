@@ -4,8 +4,8 @@ class CreateItemContainer extends Container {
   state = {
     data: {
       imageURL: null,
-      title: null,
-      description: null,
+      title: '',
+      description: '',
     },
     success: false,
     error: null
