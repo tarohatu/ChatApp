@@ -35,7 +35,7 @@ const Main = (props) => {
               color="secondary"
               aria-label="add"
               className={classes.fab}
-              size="medium"
+              size="large"
               onClick={redirectToCreate}
             >
               <AddIcon />

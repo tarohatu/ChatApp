@@ -47,6 +47,9 @@ const useStyles = makeStyles(theme => ({
   },
   list: {
     width: 250
+  },
+  arrowBack: {
+    color: 'white'
   }
 }));
 
@@ -92,12 +95,11 @@ const MenuAppBar = props => {
           <Toolbar>
             {history.location.pathname !== "/items/home" ? (
               <IconButton onClick={handlePop}>
-                <ArrowBack />
+                <ArrowBack className={classes.arrowBack} />
               </IconButton>
             ) : (
               <></>
             )}
-
             <Typography variant="h6" className={classes.title}>
               {app.state.appHeader !== '' ? app.state.appHeader : 'Home'}
             </Typography>
