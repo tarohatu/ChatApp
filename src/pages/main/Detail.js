@@ -29,17 +29,25 @@ const styles = theme => ({
     color: "white"
   },
   textArea: {
-    height: "100px",
     background: "#F3F4F5",
     position: "fixed",
     bottom: "0px",
-    padding: "0px 10px 0px 10px"
+    padding: "0px 0px 0px 0px",
+    margin: "10px 0px 0px -15px"
   },
   list: {
     margin: "0px 0px 80px 0px"
   },
   comment: {},
-  button: {}
+  button: {},
+  articleText: {
+    fontSize: "14px",
+    padding: "0px 0px 0px 0px",
+  },
+  articleTextField: {
+    margin: "0px 0px 0px 0px",
+    padding: "0px 0px 0px 0px"
+  }
 });
 
 class DetailPage extends Component {
@@ -133,7 +141,7 @@ class DetailPage extends Component {
           alignItems="center"
           justify="flex-start"
         >
-          <Grid item xs={9} className={classes.comment}>
+          <Grid item xs={8} className={classes.comment}>
             <TextField
               id="comment"
               placeholder="コメントを入力"
@@ -143,6 +151,10 @@ class DetailPage extends Component {
               variant="outlined"
               value={comment}
               onChange={handleChangeComment}
+              className={classes.articleTextField}
+              InputProps={{
+                classes: { input: classes.articleText }
+              }}
             />
           </Grid>
           <Grid item xs={2} className={classes.button}>

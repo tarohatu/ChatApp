@@ -16,11 +16,10 @@ const styles = theme => ({
   },
   root: {
     flexWrap: "wrap"
-  },
+  }
 });
 
 class ItemList extends Component {
-
   componentDidMount() {
     const { app, itemList } = this.props;
     itemList.readItems(app.getDb());
@@ -47,23 +46,23 @@ class ItemList extends Component {
     return (
       <Grid container justify="center" className={classes.container}>
         <Grid item xs={12}>
-        <GridList cellHeight={180} cols={2} className={classes.root}>
-          {items.map(item => (
-            <GridListTile
-              key={item.id}
-              onClick={() => redirectToDetail(item.id)}
-            >
-              <img
-                src={item.item.createdBy.photoURL}
-                alt={item.item.data.title}
-              />
-              <GridListTileBar
-                title={item.item.data.title}
-                subtitle={<span>{item.item.data.description}</span>}
-              />
-            </GridListTile>
-          ))}
-        </GridList>
+          <GridList cellHeight={180} cols={2} className={classes.root}>
+            {items.map(item => (
+              <GridListTile
+                key={item.id}
+                onClick={() => redirectToDetail(item.id)}
+              >
+                <img
+                  src={item.item.createdBy.photoURL}
+                  alt={item.item.data.title}
+                />
+                <GridListTileBar
+                  title={item.item.data.title}
+                  subtitle={<span>{item.item.data.description}</span>}
+                />
+              </GridListTile>
+            ))}
+          </GridList>
         </Grid>
       </Grid>
     );
