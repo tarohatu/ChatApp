@@ -66,6 +66,13 @@ class CreateItemContainer extends Container {
     });
     history.push('/items/home');
   }
+
+  setError(error) {
+    this.setState({
+      ...this.state,
+      error
+    })
+  }
 }
 
 export default CreateItemContainer;

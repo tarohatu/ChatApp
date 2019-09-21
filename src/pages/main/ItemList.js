@@ -7,6 +7,7 @@ import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import GridListTileBar from "@material-ui/core/GridListTileBar";
 import ItemContainer from "../../containers/ItemListContainer";
+import Snackbar from '@material-ui/core/Snackbar';
 
 const styles = theme => ({
   container: {
@@ -25,12 +26,16 @@ const styles = theme => ({
 class ItemList extends Component {
   componentDidMount() {
     const { app, itemList } = this.props;
-    itemList.readItems(app.getDb());
+    try {
+      itemList.readItems(app.getDb());
+    } catch (err) { itemList.setError(err); }
   }
 
   componentWillUnmount() {
-    const { itemList } = this.props;
-    itemList.unregister();
+    try {
+      const { itemList } = this.props;
+      itemList.unregister();
+    } catch (err) { }
   }
 
   redirectToCreate = () => {
@@ -40,7 +45,7 @@ class ItemList extends Component {
 
   render() {
     const { classes, itemList, history } = this.props;
-    const { items } = itemList.state;
+    const { items, error } = itemList.state;
 
     const redirectToDetail = id => {
       history.push(`/items/details/${id}`);
@@ -70,6 +75,7 @@ class ItemList extends Component {
             ))}
           </GridList>
         </Grid>
+        <Snackbar autoHideDuration={6000} open={!!error} message="エラーが発生しました" anchorOrigin={{ vertical: "bottom", horizontal: "center"}}/>
       </Grid>
     );
   }

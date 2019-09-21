@@ -5,27 +5,37 @@ class DetailContainer extends Container {
     item: null,
     posts: [],
     error: null
-  }
+  };
 
   readPosts(db, id) {
-    const docs = db.collection('posts').where('itemId', '==', id).orderBy('createdAt', 'desc');
-    this.unsnapshot = docs.onSnapshot((snapShot) => {
-      const posts = [];
-      snapShot.forEach((doc) => {
-        posts.push({
-          id: doc.id,
-          item: doc.data()
+    try {
+      const docs = db
+        .collection("posts")
+        .where("itemId", "==", id)
+        .orderBy("createdAt", "desc");
+      this.unsnapshot = docs.onSnapshot(snapShot => {
+        const posts = [];
+        snapShot.forEach(doc => {
+          posts.push({
+            id: doc.id,
+            item: doc.data()
+          });
+        });
+        this.setState({
+          ...this.state,
+          posts
         });
       });
-      this.setState({
-        ...this.state,
-        posts
-      });
-    });
+    } catch (error) {
+      this.setState({ ...this.state, error });
+    }
   }
 
   async readItem(db, id, app) {
-    const result = await db.collection('items').doc(id).get();
+    const result = await db
+      .collection("items")
+      .doc(id)
+      .get();
     const item = result.data();
     //app.changeAppHeader(item.data.title)
     this.setState({
@@ -35,7 +45,11 @@ class DetailContainer extends Container {
   }
 
   unregister() {
-    this.unsnapshot()
+    try {
+      this.unsnapshot();
+    } catch (error) {
+      this.setState({ ...this.state, error });
+    }
   }
 
   createPost(db, itemId, user, comment) {
@@ -49,14 +63,16 @@ class DetailContainer extends Container {
         photoURL,
         displayName
       }
-    }
-    db.collection('posts').add(newData).catch((err) => {
-      this.setState({
-        ...this.state,
-        error: err
+    };
+    db.collection("posts")
+      .add(newData)
+      .catch(err => {
+        this.setState({
+          ...this.state,
+          error: err
+        });
+        return;
       });
-      return;
-    });
     this.setState({
       ...this.state,
       error: null
