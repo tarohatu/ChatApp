@@ -13,6 +13,9 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import Divider from "@material-ui/core/Divider";
 import moment from "moment";
+import { IconButton } from "@material-ui/core";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import AppBar from "../shared/AppBar";
 
 moment.locale("ja");
 
@@ -22,8 +25,11 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.paper,
     margin: "0px 0px, 0px, 0px"
   },
+  icon: {
+    color: "white"
+  },
   textArea: {
-    height: '100px',
+    height: "100px",
     background: "#F3F4F5",
     position: "fixed",
     bottom: "0px",
@@ -44,11 +50,20 @@ class DetailPage extends Component {
     };
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     const { app, detail, match } = this.props;
-    await detail.readItem(app.getDb(), match.params.id, app);
     detail.readPosts(app.getDb(), match.params.id);
   }
+
+  componentWillUnmount() {
+    const { detail } = this.props;
+    detail.unregister();
+  }
+
+  handleBack = () => {
+    const { history } = this.props;
+    history.push("/items/home");
+  };
 
   render() {
     const { app, detail, match, classes } = this.props;
@@ -56,19 +71,33 @@ class DetailPage extends Component {
 
     const handleChangeComment = e => {
       this.setState({
+        ...this.state,
         comment: e.target.value
       });
     };
 
-    const createPost = async (db, id, user, comment) => {
-      await detail.createPost(db, id, user, comment);
+    const createPost = (db, id, user, comment) => {
+      detail.createPost(db, id, user, comment);
       this.setState({
+        ...this.state,
         comment: ""
       });
     };
 
+    const backIcon = (
+      <IconButton onClick={this.handleBack}>
+        <ArrowBackIcon className={classes.icon} />
+      </IconButton>
+    );
+
     return (
       <>
+        <AppBar
+          app={app}
+          user={app.getUser()}
+          children={backIcon}
+          {...this.props}
+        />
         <Grid container spacing={3}>
           <Grid container spacing={3}>
             <Grid item xs={12} className={classes.list}>

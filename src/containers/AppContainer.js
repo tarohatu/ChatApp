@@ -7,6 +7,8 @@ class AppContainer extends Container {
     user: null,
     isSignIn: false,
     appHeader: 'Home',
+    barRightIcon: null,
+    bottomBarHidden: false
   };
 
   constructor() {
@@ -19,6 +21,20 @@ class AppContainer extends Container {
       });
     });
     this.db = firebase.firestore();
+  }
+
+  setBarRightICon(barRightIcon) {
+    this.setState({
+      ...this.state,
+      barRightIcon
+    });
+  }
+
+  setBottomBarHidden(bottomBarHidden) {
+    this.setState({
+      ...this.state,
+      bottomBarHidden
+    });
   }
 
   isSignIn() {
@@ -43,6 +59,7 @@ class AppContainer extends Container {
 
   changeAppHeader(newValue) {
     this.setState({
+      ...this.state,
       appHeader: newValue
     });
   }

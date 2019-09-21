@@ -4,10 +4,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import { withRouter } from "react-router";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import ArrowBack from "@material-ui/icons/ArrowBack";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import Avatar from "@material-ui/core/Avatar";
@@ -34,10 +32,11 @@ ElevationScroll.propTypes = {
 const useStyles = makeStyles(theme => ({
   root: {
     marginBottom: theme.spacing(1),
-    position: 'fixed',
-    top: '0px',
+    position: "fixed",
+    top: "0px",
     zIndex: 99,
-    width: '100%',
+    margin: "0px 0px 0px -15px",
+    width: "100vw"
   },
   menuButton: {
     marginRight: theme.spacing(2)
@@ -47,9 +46,6 @@ const useStyles = makeStyles(theme => ({
   },
   list: {
     width: 250
-  },
-  arrowBack: {
-    color: 'white'
   }
 }));
 
@@ -80,29 +76,14 @@ const MenuAppBar = props => {
     }
   }
 
-  function handlePop() {
-    const { history } = props;
-    history.goBack();
-  }
-
-  const { app, history } = props;
-
   return (
     <div className={classes.root}>
       <CssBaseline />
       <ElevationScroll {...props}>
         <AppBar position="static">
           <Toolbar>
-            {history.location.pathname !== "/items/home" ? (
-              <IconButton onClick={handlePop}>
-                <ArrowBack className={classes.arrowBack} />
-              </IconButton>
-            ) : (
-              <></>
-            )}
-            <Typography variant="h6" className={classes.title}>
-              {app.state.appHeader !== '' ? app.state.appHeader : 'Home'}
-            </Typography>
+            {props.children}
+            <div className={classes.title} />
             <div>
               <IconButton
                 aria-label="account of current user"
@@ -117,18 +98,19 @@ const MenuAppBar = props => {
                 id="menu-appbar"
                 anchorEl={anchorEl}
                 anchorOrigin={{
-                  vertical: "top",
+                  vertical: "bottom",
                   horizontal: "right"
                 }}
                 keepMounted
                 transformOrigin={{
-                  vertical: "top",
+                  vertical: "bottom",
                   horizontal: "right"
                 }}
                 open={open}
                 onClose={handleClose}
               >
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                <MenuItem onClick={handleLogout}>Profile</MenuItem>
               </Menu>
             </div>
           </Toolbar>

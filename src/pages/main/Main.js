@@ -1,47 +1,42 @@
 import React from "react";
-import { Subscribe, Provider } from "unstated";
 import { makeStyles } from "@material-ui/core/styles";
-import Fab from "@material-ui/core/Fab";
-import AddIcon from "@material-ui/icons/Add";
+import { Subscribe, Provider } from "unstated";
 import AppContainer from "../../containers/AppContainer";
 import { withRouter } from "react-router";
 import ItemList from "./ItemList";
-
+import AppBar from "../shared/AppBar";
+import { IconButton } from "@material-ui/core";
+import AddIcon from "@material-ui/icons/Add";
+import BottomNavigation from '../shared/BottomNavigation';
 const useStyles = makeStyles(theme => ({
-  fab: {
-    position: "fixed",
-    margin: theme.spacing(1),
-    bottom: "20px",
-    right: "20px"
+  icon: {
+    color: "white"
   }
 }));
 
-const Main = (props) => {
+const Main = props => {
   const classes = useStyles();
-  const { history } = props;
 
   const redirectToCreate = () => {
-    history.push('/items/new');
-  }
+    const { history } = props;
+    history.push("/items/new");
+  };
+
+  const rightBarIcon = <IconButton onClick={redirectToCreate}><AddIcon className={classes.icon}/></IconButton>
+
 
   return (
     <Provider>
       <Subscribe to={[AppContainer]}>
         {app => {
-          return(
-          <>
-            <ItemList app={app} />
-            <Fab
-              color="secondary"
-              aria-label="add"
-              className={classes.fab}
-              size="large"
-              onClick={redirectToCreate}
-            >
-              <AddIcon />
-            </Fab>
-          </>
-        )}}
+          return (
+            <>
+              <AppBar app={app} user={app.getUser()} children={rightBarIcon} {...props} />
+              <ItemList app={app} />
+              <BottomNavigation main="/items/home" />
+            </>
+          );
+        }}
       </Subscribe>
     </Provider>
   );

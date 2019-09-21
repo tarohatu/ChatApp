@@ -9,7 +9,7 @@ class DetailContainer extends Container {
 
   readPosts(db, id) {
     const docs = db.collection('posts').where('itemId', '==', id).orderBy('createdAt', 'desc');
-    docs.onSnapshot((snapShot) => {
+    this.unsnapshot = docs.onSnapshot((snapShot) => {
       const posts = [];
       snapShot.forEach((doc) => {
         posts.push({
@@ -18,6 +18,7 @@ class DetailContainer extends Container {
         });
       });
       this.setState({
+        ...this.state,
         posts
       });
     });
@@ -28,11 +29,16 @@ class DetailContainer extends Container {
     const item = result.data();
     //app.changeAppHeader(item.data.title)
     this.setState({
+      ...this.state,
       item
     });
   }
 
-  async createPost(db, itemId, user, comment) {
+  unregister() {
+    this.unsnapshot()
+  }
+
+  createPost(db, itemId, user, comment) {
     const { uid, photoURL, displayName } = user;
     const newData = {
       comment,
@@ -44,16 +50,15 @@ class DetailContainer extends Container {
         displayName
       }
     }
-    await db.collection('posts').add(newData).catch((err) => {
+    db.collection('posts').add(newData).catch((err) => {
       this.setState({
+        ...this.state,
         error: err
       });
       return;
     });
     this.setState({
-      postData: {
-        comment: '',
-      },
+      ...this.state,
       error: null
     });
   }

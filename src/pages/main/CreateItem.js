@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import { withRouter } from "react-router";
@@ -9,34 +9,48 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import CreateItemContainer from "../../containers/CreateItemContainer";
 import Button from "@material-ui/core/Button";
+import { IconButton } from '@material-ui/core';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import AppBar from '../shared/AppBar';
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    width: "100vw",
-    height: "90vh",
-    background: theme.palette.background.paper
-  },
+  root: {},
   container: {},
   divider: {
     margin: theme.spacing(3)
+  },
+  icon: {
+    color: 'white'
   }
 }));
 
 const CreateItem = props => {
   const { app, history } = props;
   const classes = useStyles();
+  const handleBack = () => {
+    history.goBack();
+  }
+  useEffect(() => {
+    app.setBarRightICon();
+    app.setBottomBarHidden(true);
+  }, []);
+
+  const backIcon = <IconButton onClick={handleBack}><ArrowBackIcon className={classes.icon}/></IconButton>
   return (
     <Provider>
       <Subscribe to={[CreateItemContainer]}>
         {container => {
           return (
+            <>
+            <AppBar app={app} user={app.getUser()} children={backIcon} {...props} />
             <Grid
               container
               spacing={3}
               justify="center"
+              alignItems="center"
               className={classes.root}
             >
-              <Grid item lg={12} style={{ width: "100%" }}>
+              <Grid item xs={12}>
                 <Card elevation={0}>
                   <CardContent>
                     <Grid
@@ -50,8 +64,12 @@ const CreateItem = props => {
                           fullWidth
                           autoFocus
                           required
-                          error={container.state.data.title === ''}
-                          helperText={container.state.data.title === '' ? '必須項目です' : null}
+                          error={container.state.data.title === ""}
+                          helperText={
+                            container.state.data.title === ""
+                              ? "必須項目です"
+                              : null
+                          }
                           placeholder="Title*"
                           onChange={e => {
                             container.handleChangeTitle(e.target.value);
@@ -82,10 +100,10 @@ const CreateItem = props => {
                     <Grid
                       container
                       spacing={3}
-                      justify="center"
+                      justify="flex-end"
                       className={classes.container}
                     >
-                      <Grid item xs={4}>
+                      <Grid item xs={12}>
                         <Button
                           onClick={() => {
                             container.handleCreateItem(
@@ -94,7 +112,7 @@ const CreateItem = props => {
                               history
                             );
                           }}
-                          disabled={container.state.data.title === ''}
+                          disabled={container.state.data.title === ""}
                           variant="contained"
                           color="primary"
                         >
@@ -106,6 +124,7 @@ const CreateItem = props => {
                 </Card>
               </Grid>
             </Grid>
+            </>
           );
         }}
       </Subscribe>

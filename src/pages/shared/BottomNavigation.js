@@ -1,8 +1,10 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import RestoreIcon from '@material-ui/icons/Restore';
+import HomeIcon from '@material-ui/icons/Home';
 import FeedbackIcon from '@material-ui/icons/Feedback';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 
@@ -15,7 +17,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function BottomNavigationBar() {
+export default function BottomNavigationBar(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -28,9 +30,13 @@ export default function BottomNavigationBar() {
       showLabels
       className={classes.root}
     >
-      <BottomNavigationAction label="履歴" icon={<RestoreIcon />} />
-      <BottomNavigationAction label="コメント" icon={<FeedbackIcon />} />
-      <BottomNavigationAction label="Nearby" icon={<LocationOnIcon />} />
+      <BottomNavigationAction label="ホーム" icon={<HomeIcon />} component={Link} to={props.main}/>
+      <BottomNavigationAction disabled label="TBD" icon={<FeedbackIcon />} />
+      <BottomNavigationAction disabled label="TBD" icon={<LocationOnIcon />} />
     </BottomNavigation>
   );
+}
+
+BottomNavigationBar.propTypes = {
+  main: PropTypes.string
 }

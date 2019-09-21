@@ -1,4 +1,5 @@
 import { Container } from "unstated";
+import firebase from 'firebase';
 
 class CreateItemContainer extends Container {
   state = {
@@ -46,16 +47,19 @@ class CreateItemContainer extends Container {
       createdBy: {
         uid,
         photoURL,
-        displayName
-      }
+        displayName,
+      },
+      createdAt: firebase.firestore.Timestamp.now()
     }
     await db.collection('items').add(item).catch((err) => {
       this.setState({
+        ...this.state,
         error: err
       });
       return;
     });
     await this.setState({
+      ...this.state,
       data: {},
       success: false,
       error: null

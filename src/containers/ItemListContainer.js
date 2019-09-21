@@ -7,7 +7,7 @@ class ItemListContainer extends Container {
 
   readItems(db) {
     const docs = db.collection('items');
-    docs.onSnapshot((snapShot) => {
+    this.unsnapshot = docs.onSnapshot((snapShot) => {
       const items = []
       snapShot.forEach((doc) => {
         items.push({
@@ -16,9 +16,14 @@ class ItemListContainer extends Container {
         });
       });
       this.setState({
+        ...this.state,
         items
       })
     });
+  }
+
+  unregister() {
+    this.unsnapshot()
   }
 }
 
