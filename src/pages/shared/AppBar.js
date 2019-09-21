@@ -32,7 +32,6 @@ ElevationScroll.propTypes = {
 const useStyles = makeStyles(theme => ({
   root: {
     marginBottom: theme.spacing(1),
-    position: "fixed",
     top: "0px",
     zIndex: 99,
     margin: "0px 0px 0px -16px",
@@ -92,7 +91,7 @@ const MenuAppBar = props => {
     <div className={classes.root}>
       <CssBaseline />
       <ElevationScroll {...props}>
-        <AppBar className={classes.appBar}>
+        <AppBar position="fixed" className={classes.appBar}>
           <Toolbar>
             {props.children}
             <div className={classes.title} />

@@ -31,7 +31,7 @@ export default function BottomNavigationBar(props) {
       className={classes.root}
       color="secondary"
     >
-      <BottomNavigationAction label="ホーム" icon={<HomeIcon color="primary" />} component={Link} to={props.main}/>
+      <BottomNavigationAction label="ホーム" icon={<HomeIcon />} component={Link} to={props.main}/>
       <BottomNavigationAction disabled label="TBD" icon={<FeedbackIcon />} />
       <BottomNavigationAction disabled label="TBD" icon={<LocationOnIcon />} />
     </BottomNavigation>

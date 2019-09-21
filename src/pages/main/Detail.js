@@ -36,7 +36,7 @@ const styles = theme => ({
     margin: "10px 0px 0px -15px"
   },
   list: {
-    margin: "0px 0px 80px 0px"
+    margin: "0px 0px 10px 0px"
   },
   comment: {},
   button: {},
@@ -106,8 +106,8 @@ class DetailPage extends Component {
           children={backIcon}
           {...this.props}
         />
-        <Grid container spacing={3}>
-          <Grid container spacing={3}>
+        <Grid container>
+          <Grid container>
             <Grid item xs={12} className={classes.list}>
               <List>
                 {detail.state.posts.map(post => {
