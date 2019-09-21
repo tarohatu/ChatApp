@@ -14,7 +14,7 @@ const useStyles = makeStyles({
     position: 'fixed',
     left: 0,
     bottom: 0
-  },
+  }
 });
 
 export default function BottomNavigationBar(props) {
@@ -29,8 +29,9 @@ export default function BottomNavigationBar(props) {
       }}
       showLabels
       className={classes.root}
+      color="secondary"
     >
-      <BottomNavigationAction label="ホーム" icon={<HomeIcon />} component={Link} to={props.main}/>
+      <BottomNavigationAction label="ホーム" icon={<HomeIcon color="primary" />} component={Link} to={props.main}/>
       <BottomNavigationAction disabled label="TBD" icon={<FeedbackIcon />} />
       <BottomNavigationAction disabled label="TBD" icon={<LocationOnIcon />} />
     </BottomNavigation>

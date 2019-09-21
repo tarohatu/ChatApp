@@ -36,7 +36,19 @@ const useStyles = makeStyles(theme => ({
     top: "0px",
     zIndex: 99,
     margin: "0px 0px 0px -16px",
-    width: "100vw"
+    width: "100vw",
+  },
+  appBar: {
+  },
+  stripe: {
+    width: "100vw",
+    height: "7px",
+    backgroundColor: "#F6F6F6",
+    position: "absolute",
+    bottom: "7px",
+    right: 0,
+    left: 0,
+    zIndex: -1
   },
   menuButton: {
     marginRight: theme.spacing(2)
@@ -70,7 +82,7 @@ const MenuAppBar = props => {
   function renderIcon() {
     const { user } = props;
     if (user.photoURL) {
-      return <Avatar alt={user.displayName} src={user.photoURL} />;
+      return <Avatar alt={user.displayName} src={user.photoURL}/>;
     } else {
       return <AccountCircle />;
     }
@@ -80,7 +92,7 @@ const MenuAppBar = props => {
     <div className={classes.root}>
       <CssBaseline />
       <ElevationScroll {...props}>
-        <AppBar position="static">
+        <AppBar className={classes.appBar}>
           <Toolbar>
             {props.children}
             <div className={classes.title} />
@@ -112,6 +124,7 @@ const MenuAppBar = props => {
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 <MenuItem onClick={handleLogout}>Profile</MenuItem>
               </Menu>
+              <div className={classes.stripe}/>
             </div>
           </Toolbar>
         </AppBar>

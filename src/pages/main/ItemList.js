@@ -12,10 +12,13 @@ const styles = theme => ({
   container: {
     margin: "40px 0px, 40px, 0px",
     padding: "0px 0px 40px, 0px",
-    backgroundColor: theme.palette.background.paper
+    backgroundColor: "#F6F6F6"
   },
   root: {
     flexWrap: "wrap"
+  },
+  tileRoot: {
+    background: "#B2707AC1"
   }
 });
 
@@ -59,6 +62,9 @@ class ItemList extends Component {
                 <GridListTileBar
                   title={item.item.data.title}
                   subtitle={<span>{item.item.data.description}</span>}
+                  classes={{
+                    root: classes.tileRoot
+                  }}
                 />
               </GridListTile>
             ))}

@@ -119,11 +119,9 @@ class DetailPage extends Component {
                         </ListItemAvatar>
                         <ListItemText
                           primary={post.item.comment}
-                          secondary={`${
-                            post.item.createdBy.displayName
-                          }さんが${moment(post.item.createdAt).format(
+                          secondary={`${moment(post.item.createdAt).format(
                             "YYYY/MM/DD HH:mm"
-                          )}に投稿しました`}
+                          )}に投稿`}
                         />
                       </ListItem>
                       <Divider />

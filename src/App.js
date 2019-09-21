@@ -1,6 +1,7 @@
 import React from "react";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
+import "./App.css";
 import Application from "./pages/Application";
 
 const theme = createMuiTheme({
@@ -8,6 +9,8 @@ const theme = createMuiTheme({
     useNextVariants: true
   },
   palette: {
+    primary: { main:  "#6B484F" },
+    secondary: { main: "#713E47" }
   }
 });
 
