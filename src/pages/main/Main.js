@@ -42,7 +42,7 @@ const Main = props => {
         {app => {
           return (
             <>
-              <AppBar app={app} user={app.getUser()} {...props} />
+              <AppBar app={app} user={app.getUser()} title="Home" {...props} />
               <div className={classes.addButtonArea}>
                 <Fab color="primary" aria-label="add" size="small" onClick={redirectToCreate}>
                   <AddIcon className={classes.icon}/>

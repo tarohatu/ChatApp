@@ -9,6 +9,13 @@ const theme = createMuiTheme({
     useNextVariants: true,
     body1: {
       fontFamily: 'uzura'
+    },
+    h6: {
+      fontFamily: 'uzura',
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      listStyle: 'none'
     }
   },
   palette: {

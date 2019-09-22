@@ -6,6 +6,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import AccountCircle from "@material-ui/icons/AccountCircle";
+import Typography from "@material-ui/core/Typography";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import Avatar from "@material-ui/core/Avatar";
@@ -38,6 +39,7 @@ const useStyles = makeStyles(theme => ({
     width: "100vw",
   },
   appBar: {
+    justifyItems: "center"
   },
   stripe: {
     width: "100vw",
@@ -49,11 +51,16 @@ const useStyles = makeStyles(theme => ({
     left: 0,
     zIndex: -1
   },
+  box: {
+    height: "24px",
+    width: "48px"
+  },
   menuButton: {
     marginRight: theme.spacing(2)
   },
   title: {
-    flexGrow: 1
+    flexGrow: 1,
+    justifyItems: "center"
   },
   list: {
     width: 250
@@ -93,8 +100,15 @@ const MenuAppBar = props => {
       <ElevationScroll {...props}>
         <AppBar position="fixed" className={classes.appBar}>
           <Toolbar>
-            {props.children}
-            <div className={classes.title} />
+            {!!props.children ? props.children : <div className={classes.box}></div>}
+            <div className={classes.title}>
+              <Typography
+                align="center"
+                variant="h6"
+              >
+                {props.title}
+              </Typography>
+            </div>
             <div>
               <IconButton
                 aria-label="account of current user"

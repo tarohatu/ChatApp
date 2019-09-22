@@ -32,7 +32,7 @@ const styles = theme => ({
     background: "#F3F4F5",
     position: "fixed",
     bottom: "0px",
-    padding: "0px 0px 0px 0px",
+    padding: "3px 3px",
     margin: "10px 0px 0px -15px"
   },
   list: {
@@ -40,13 +40,22 @@ const styles = theme => ({
   },
   comment: {},
   button: {},
+  buttonRoot: {
+    height: "27px",
+    padding: "2px 3px 5px",
+    fontFamily: "uzura"
+  },
   articleText: {
-    fontSize: "14px",
+    fontSize: "16px",
     padding: "0px 0px 0px 0px",
+    fontFamily: "uzura"
   },
   articleTextField: {
     margin: "0px 0px 0px 0px",
     padding: "0px 0px 0px 0px"
+  },
+  inputMultiline: {
+    padding: '4px 4px'
   }
 });
 
@@ -104,6 +113,7 @@ class DetailPage extends Component {
           app={app}
           user={app.getUser()}
           children={backIcon}
+          title="コメント一覧"
           {...this.props}
         />
         <Grid container>
@@ -134,12 +144,11 @@ class DetailPage extends Component {
         </Grid>
         <Grid
           container
-          spacing={3}
           className={classes.textArea}
           alignItems="center"
           justify="flex-start"
         >
-          <Grid item xs={8} className={classes.comment}>
+          <Grid item xs={9} className={classes.comment}>
             <TextField
               id="comment"
               placeholder="コメントを入力"
@@ -151,11 +160,14 @@ class DetailPage extends Component {
               onChange={handleChangeComment}
               className={classes.articleTextField}
               InputProps={{
-                classes: { input: classes.articleText }
+                classes: {
+                  input: classes.articleText,
+                  multiline: classes.inputMultiline
+                }
               }}
             />
           </Grid>
-          <Grid item xs={2} className={classes.button}>
+          <Grid item xs={3} className={classes.button}>
             <Button
               fullWidth
               disabled={comment === ""}
@@ -164,6 +176,9 @@ class DetailPage extends Component {
               onClick={() =>
                 createPost(app.getDb(), match.params.id, app.getUser(), comment)
               }
+              classes={{
+                root: classes.buttonRoot
+              }}
             >
               送信
             </Button>

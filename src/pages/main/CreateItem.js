@@ -50,6 +50,7 @@ const CreateItem = props => {
                 app={app}
                 user={app.getUser()}
                 children={backIcon}
+                title="新規作成"
                 {...props}
               />
               <Grid
