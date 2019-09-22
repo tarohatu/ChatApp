@@ -36,7 +36,7 @@ const styles = theme => ({
     margin: "10px 0px 0px -15px"
   },
   list: {
-    margin: "0px 0px 10px 0px"
+    margin: "0px 0px 10px 0px",
   },
   comment: {},
   button: {},

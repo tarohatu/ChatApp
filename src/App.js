@@ -6,7 +6,10 @@ import Application from "./pages/Application";
 
 const theme = createMuiTheme({
   typography: {
-    useNextVariants: true
+    useNextVariants: true,
+    body1: {
+      fontFamily: 'uzura'
+    }
   },
   palette: {
     primary: { main:  "#6B484F" },

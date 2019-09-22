@@ -19,6 +19,7 @@ const styles = theme => ({
     flexWrap: "wrap"
   },
   tileRoot: {
+    fontFamily: "uzura",
     background: "#B2707AC1"
   }
 });
